@@ -4,7 +4,8 @@
   "description": "Serverless webpack example using Typescript",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:dev": "sls deploy -v"
   },
   "dependencies": {
     "source-map-support": "^0.5.10"
@@ -14,6 +15,8 @@
     "@types/node": "^10.12.18",
     "aws-sdk": "^2.645.0",
     "fork-ts-checker-webpack-plugin": "^3.0.1",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-reqvalidator-plugin": "^1.0.3",
     "serverless-webpack": "^5.2.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
