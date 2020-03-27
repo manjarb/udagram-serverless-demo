@@ -8,6 +8,7 @@
     "deploy:dev": "sls deploy -v"
   },
   "dependencies": {
+    "jimp": "^0.9.7",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
