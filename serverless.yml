@@ -6,6 +6,13 @@ custom:
     webpackConfig: ./webpack.config.js
     includeModules: true
   topicName: imagesTopic-${self:provider.stage}
+  serverless-offline:
+    port: 3003
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
   documentation:
     api:
       info:
@@ -25,6 +32,10 @@ plugins:
   - serverless-webpack
   - serverless-reqvalidator-plugin
   - serverless-aws-documentation
+  - serverless-plugin-canary-deployments
+  - serverless-iam-roles-per-function
+  - serverless-dynamodb-local
+  - serverless-offline
 
 provider:
   name: aws
@@ -47,6 +58,11 @@ provider:
   region: ${opt:region, 'us-east-1'}
 
   iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - codedeploy:*
+      Resource:
+        - '*'
     - Effect: Allow
       Action:
         - dynamodb:Scan
@@ -116,6 +132,9 @@ functions:
             description: Create a new group
             requestModels:
               "application/json": GroupRequest
+    deploymentSettings:
+      type: Linear10PercentEvery1Minute
+      alias: Live
 
   GetImages:
     handler: src/lambda/http/getImages.handler
